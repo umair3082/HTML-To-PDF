@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- html2canvas library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- jsPDF library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://releases.jquery.com/git/jquery-git.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js" integrity="sha512-NFUcDlm4V+a2sjPX7gREIXgCSFja9cHtKPOL1zj6QhnE0vcY695MODehqkaGYTLyL2wxe/wtr4Z49SvqXq12UQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<style>
+#contentToPrint{
+width: 300px;
+    margin: 0 auto;
+	padding-top:5px;
+	padding-bottom:15px;
+}
+#profile{
+height: 140px;
+    width: 140px;
+    border-radius: 100%;
+}
+#heading{
+text-align:center;
+}
+#name{
+text-align:center;
+}
+#qrcode canvas{
+height: 100px;
+}
+</style>
+<script>
+    /* Place custom JavaScript code here */
+	window.jsPDF = window.jspdf.jsPDF;
+
+// Convert HTML content to PDF
+function Convert_HTML_To_PDF() {
+    var doc = new jsPDF();
+	
+    // Source HTMLElement or a string containing HTML.
+    var elementHTML = document.querySelector("#contentToPrint");
+
+    doc.html(elementHTML, {
+        callback: function(doc) {
+            // Save the PDF
+            doc.save('document-html.pdf');
+        },
+        margin: [10, 10, 10, 10],
+        autoPaging: 'text',
+        x: 0,
+        y: 0,
+        width: 190, //target width in the PDF document
+        windowWidth: 310 //window width in CSS pixels
+    });
+}
+
+
+                   				
+</script>
+</head>
+<body>
+
+<!-- Trigger button -->
+<button onclick="Convert_HTML_To_PDF();">Convert HTML to PDF</button>
+
+<!-- HTML content for PDF creation -->
+<div id="contentToPrint" style="background:green;">
+    <h1 id="heading">Health Pass <span style="color:red">*</span></h1>
+	
+    <p id="name">Umair Rasheed</p>
+	<p style="text-align:center;">
+    <img id="profile" src="https://media.istockphoto.com/id/1270067126/photo/smiling-indian-man-looking-at-camera.jpg?s=612x612&w=0&k=20&c=ovIQ5GPurLd3mOUj82jB9v-bjGZ8updgy1ACaHMeEC0=">
+</p>
+<h4 id="heading">Scan To View</h4>
+   <!-- <img src="path/to/image_2.jpeg"> -->
+   <div id="qrcode" style="margin:0 auto;text-align: center;">
+   </div>
+</div>
+
+</body>
+<script>
+$('#qrcode').qrcode("this plugin is great");
+</script>
+</html>
